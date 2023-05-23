@@ -1,0 +1,31 @@
+{
+    "users": [
+      {
+        "id": 1,
+        "username": "AtyZeph",
+        "password": "cOouc1QuHFkmqVqtPpQ2"
+      },
+      {
+        "id": 2,
+        "username": "jane",
+        "password": "password456"
+      }
+    ],
+    "messages": [
+      {
+        "content": "Hello !",
+        "user": {
+          "id": 1,
+          "username": "AtyZeph"
+        }
+      },
+      {
+        "content": "Hello !",
+        "user": {
+          "id": 2,
+          "username": "jane"
+        }
+      }
+    ]
+  }
+  
