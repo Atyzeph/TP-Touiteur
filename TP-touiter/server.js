@@ -4,11 +4,20 @@ const port = 3000;
 const authRoutes = require('./routing/auth');
 const homeRoutes = require('./routing/home');
 const router = express.Router();
+const session = require('express-session');
+const config = require('./config');
 
 app.set('view engine', 'pug');
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 
+// Session
+app.use(session({
+  // Fichier config
+  secret: config.sessionSecret,
+  resave: false,
+  saveUninitialized: false
+}));
 
 // Routes ...
 app.use(authRoutes);

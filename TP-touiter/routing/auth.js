@@ -28,8 +28,8 @@ router.post('/login', (req, res) => {
     res.render('login', { error: 'Nom d\'utilisateur ou mot de passe incorrect' });
     return;
   }
-
-  // Connexion réussie, rediriger vers la page d'accueil par exemple
+  req.session.userId = user.id;
+  // Connexion réussie, rediriger vers la page d'accueil
   res.redirect('/homePage');
 });
 
@@ -80,20 +80,18 @@ router.get('/homePage', (req, res) => {
 // Soumission du formulaire de création de message
 router.post('/createMessage', (req, res) => {
   const { messageContent } = req.body;
-  const userId = req.session.userId; // Utilisez le bon moyen pour récupérer l'ID de l'utilisateur
-
+  const userId = req.session.userId; 
+  console.log("UserId : " + userId);
   messageController.createMessage(messageContent, userId)
-    .then((newMessage) => {
-      if (newMessage) {
-        res.redirect('/homePage');
-      } else {
-        res.redirect('/homePage'); // Rediriger vers la page d'accueil en cas d'erreur
-      }
+    .then(() => {
+      res.redirect('/homePage');
     })
     .catch(error => {
       console.error('Error creating message:', error);
       res.redirect('/homePage'); // Rediriger vers la page d'accueil en cas d'erreur
     });
 });
+
+
 
 module.exports = router;
