@@ -10,6 +10,8 @@ function getMessages() {
   return messages;
 }
 
+let messageId = 3; // Variable pour stocker l'identifiant du message
+
 async function createMessage(messageContent, userId) {
   try {
     const user = db.users.find(u => u.id === userId);
@@ -19,13 +21,14 @@ async function createMessage(messageContent, userId) {
     }
 
     const newMessage = {
+      id: messageId, // Utilisation de l'identifiant actuel
       content: messageContent,
       user: {
         id: user.id,
         username: user.username
       }
     };
-
+    messageId++;
     db.messages.push(newMessage);
     return newMessage;
   } catch (error) {
@@ -34,7 +37,19 @@ async function createMessage(messageContent, userId) {
   }
 }
 
+
+function deleteMessageById(messageId) {
+  const messageIndex = db.messages.findIndex(msg => msg.id === messageId);
+  if (messageIndex !== -1) {
+    db.messages.splice(messageIndex, 1);
+    return true;
+  }
+  return false;
+}
+
+
 module.exports = {
   getMessages,
-  createMessage
+  createMessage,
+  deleteMessageById
 };

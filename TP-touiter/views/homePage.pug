@@ -4,8 +4,8 @@ block content
   h1 Accueil
 
   // Formulaire de création de message
-  form(action="/createMessage" method="POST")
-    input(type="text" name="messageContent" placeholder="Message ...")
+  form(action="/createMessage", method="POST")
+    input(type="text", name="messageContent", placeholder="Message ...")
     button(type="submit") Envoyer
 
   // Affichage des messages existants
@@ -16,5 +16,8 @@ block content
         li
           h3= msg.content
           p By #{msg.user.username}
+          form(action="/deleteMessage", method="POST")
+            input(type="hidden", name="messageId", value=msg.id)
+            button(type="submit") Supprimer
   else
     p Vous n'avez pas de discussion
