@@ -19,6 +19,18 @@ app.use(session({
   saveUninitialized: false
 }));
 
+// Route de déconnexion
+app.get('/logout', (req, res) => {
+  // Détruire la session de l'utilisateur (destroy)
+  req.session.destroy((err) => {
+    if (err) {
+      console.error('Error destroying session:', err);
+    }
+    res.redirect('/');
+  });
+});
+
+
 // Routes ...
 app.use(authRoutes);
 app.use(homeRoutes);
