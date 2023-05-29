@@ -1,13 +1,11 @@
-// Contrôleur pour l'authentification
+// Controller pour l'authentification
 const db = require('../db.json');
-
 
 // Action de connexion
 function login(username, password) {
   // Recherche de l'utilisateur dans la base de données
   const user = db.users.find(u => u.username === username && u.id.toString() === userId);
-
-
+  
   if (!user) {
     // Utilisateur non trouvé
     return { success: false, message: 'Nom d\'utilisateur ou mot de passe incorrect' };
@@ -25,7 +23,7 @@ function login(username, password) {
 
 // Action d'inscription
 function register(username, password) {
-  // Vérification si l'utilisateur existe déjà dans la base de données
+  // Vérifie si l'utilisateur existe déjà dans la base de données
   const existingUser = db.users.find(u => u.username === username);
 
   if (existingUser) {

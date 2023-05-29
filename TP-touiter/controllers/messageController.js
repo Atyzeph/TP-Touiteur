@@ -1,4 +1,3 @@
-const axios = require('axios');
 const db = require('../db.json');
 
 // Récupérer les messages
@@ -34,7 +33,6 @@ async function createMessage(messageContent, userId) {
     return null;
   }
 }
-
 
 module.exports = {
   getMessages,

@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const { v4: uuidv4 } = require('uuid');
 const db = require('../db.json');
-const messageController = require('../controllers/messageController');
 
 // Page de connexion
 router.get('/', (req, res) => {
@@ -64,34 +63,8 @@ router.post('/register', (req, res) => {
   // Ajout du nouvel utilisateur à la base de données
   db.users.push(newUser);
 
-  // Rediriger vers la page de connexion après l'inscription réussie
+  // Rediriger vers la page de connexion après l'inscription
   res.redirect('/');
 });
-
-// Page d'accueil
-router.get('/homePage', (req, res) => {
-  // Récupérer les messages en utilisant le contrôleur
-  const messages = messageController.getMessages();
-
-  // Passer les messages à la vue et rendre la page d'accueil
-  res.render('homePage', { messages });
-});
-
-// Soumission du formulaire de création de message
-router.post('/createMessage', (req, res) => {
-  const { messageContent } = req.body;
-  const userId = req.session.userId; 
-  console.log("UserId : " + userId);
-  messageController.createMessage(messageContent, userId)
-    .then(() => {
-      res.redirect('/homePage');
-    })
-    .catch(error => {
-      console.error('Error creating message:', error);
-      res.redirect('/homePage'); // Rediriger vers la page d'accueil en cas d'erreur
-    });
-});
-
-
 
 module.exports = router;
